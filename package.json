@@ -11,6 +11,7 @@
     "@types/node": "^16.11.36",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
+    "apollo": "^2.34.0",
     "graphql": "^16.5.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -21,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "tailwind:build": "npx tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
+    "tailwind:build": "tailwind build -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
     "start": "npm run tailwind:build & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -46,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14"
   }
