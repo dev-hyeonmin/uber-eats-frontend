@@ -12,7 +12,7 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "apollo": "^2.34.0",
-    "graphql": "^16.5.0",
+    "graphql": "^15.8.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.31.2",
@@ -23,6 +23,7 @@
   },
   "scripts": {
     "tailwind:build": "tailwind build -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
+    "apollo:codegen": "apollo client:codegen src/__generated__ --target=typescript --outputFlat",
     "start": "npm run tailwind:build & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
