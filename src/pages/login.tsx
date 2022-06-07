@@ -1,7 +1,9 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useRef } from "react";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { isLoggedInVar } from "../apollo";
 import { Button } from "../components/button";
 import { FormError } from "../components/form-error";
 import { loginMutation, loginMutationVariables } from "../__generated__/loginMutation";
@@ -38,7 +40,8 @@ export const Login = () => {
         } = data;
 
         if (ok) {
-            console.log(token);
+            //console.log(token);
+            isLoggedInVar(true);
         }
     };
     const [loginMutation, {data: loginMutationResult, loading}] = useMutation<loginMutation, loginMutationVariables>(LOGIN_MUTATION, {
@@ -59,7 +62,10 @@ export const Login = () => {
       };
     return (
         <div className="h-screen flex items-center justify-center">
-           <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
+            <Helmet>
+                <title>Login | Nuber Eats</title>
+            </Helmet>
+            <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
                 <img src="https://www.ubereats.com/_static/8b969d35d373b512664b78f912f19abc.svg" className="w-52 mb-10" />
                 <h4 className="w-full font-medium text-left text-3xl mb-5">
                 Welcome back
@@ -70,7 +76,7 @@ export const Login = () => {
                 className="grid gap-3 mt-5 w-full"
                 >
                 <input
-                    {...register("email", {required: "Email is required"})}
+                    {...register("email", {required: "Email is required", pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,})}
                     name="email"
                     required
                     type="email"

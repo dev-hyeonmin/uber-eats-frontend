@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { client } from './apollo';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Helmet from 'react-helmet'
 import "./styles/styles.css";
 
 const root = ReactDOM.createRoot(
