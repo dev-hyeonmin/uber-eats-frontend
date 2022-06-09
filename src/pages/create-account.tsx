@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useRef } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
