@@ -493,12 +493,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   pointer-events: none;
 }
 
-.mb-10 {
-  margin-bottom: 2.5rem;
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
 }
 
 .mb-5 {
   margin-bottom: 1.25rem;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem;
 }
 
 .mt-5 {
@@ -529,8 +538,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 13rem;
 }
 
+.w-24 {
+  width: 6rem;
+}
+
 .max-w-screen-sm {
   max-width: 640px;
+}
+
+.max-w-screen-xl {
+  max-width: 1280px;
 }
 
 .flex-col {
@@ -543,6 +560,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .gap-3 {
@@ -578,9 +599,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.75rem;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .text-xl {
@@ -590,6 +626,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .font-medium {
   font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .tracking-wide {
@@ -632,4 +672,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+@media (min-width: 1280px) {
+  .xl\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
