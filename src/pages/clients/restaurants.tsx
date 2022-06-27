@@ -5,6 +5,8 @@ import { Restaurant } from "../../components/restaurant";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import { CATEGORY_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
 
 const RESTAURANT_QUERY = gql`
     query restaurantsPageQuery ($input: RestaurantsInput!) {
@@ -12,11 +14,7 @@ const RESTAURANT_QUERY = gql`
             ok
             error
             categories {
-                id
-                name
-                coverImage
-                slug
-                restaurantCount
+                ...CategoryParts
             }
         }
         restaurants(input: $input) {
@@ -25,17 +23,12 @@ const RESTAURANT_QUERY = gql`
             totalPages
             totalResults
             results {
-                id
-                name
-                coverImage
-                category {
-                    name
-                }
-                address
-                isPromoted
+                ...RestaurantParts
             }
         }
     }
+    ${RESTAURANT_FRAGMENT}
+    ${CATEGORY_FRAGMENT}
 `;
 
 interface IFromProps {
@@ -89,8 +82,8 @@ export const Restuarants = () => {
                 <div className="max-w-screen-2xl mx-auto mt-8">
                     <ul className="flex justify-around max-w-sm mx-auto">
                         {data?.allCategories.categories?.map((category) => (
-                            <li
-                                key={category.id}
+                            <Link to={`/category/${category.slug}`} key={category.id}>
+                            <li                                
                                 className="flex flex-col items-center cursor-pointer group">
                                 <div
                                     className="w-14 h-14 bg-cover group-hover:bg-gray-100 rounded-full"
@@ -100,6 +93,7 @@ export const Restuarants = () => {
                                 {category.name}
                                 </span>
                             </li>
+                            </Link>
                         ))}
                     </ul>
 
