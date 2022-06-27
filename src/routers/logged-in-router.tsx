@@ -5,13 +5,15 @@ import { NotFound } from "../pages/404";
 import { ConfirmEmail } from "../pages/clients/confirm-email";
 import { EditProfile } from "../pages/clients/edit-profile";
 import { Restuarants } from "../pages/clients/restaurants";
+import { Search } from "../pages/clients/search";
 import { Header } from "../pages/header";
 import { useMe } from "../pages/hooks/useMe";
 
 const ClientRoutes = [
     <Route key={1} path="/" element={<Restuarants />} />,
     <Route key={2} path="/confirm" element={<ConfirmEmail />} />,
-    <Route key={3} path="/edit-profile" element={<EditProfile/>}/>
+    <Route key={3} path="/edit-profile" element={<EditProfile />} />,
+    <Route key={4} path="/search" element={<Search/>}/>
 ];
 
 export const LoggedInRouter = () => {

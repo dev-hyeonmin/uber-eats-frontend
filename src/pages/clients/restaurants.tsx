@@ -2,6 +2,9 @@ import { gql, useQuery } from "@apollo/client";
 import { restaurantsPageQuery, restaurantsPageQueryVariables } from "../../__generated__/restaurantsPageQuery";
 import React, { useState } from "react";
 import { Restaurant } from "../../components/restaurant";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const RESTAURANT_QUERY = gql`
     query restaurantsPageQuery ($input: RestaurantsInput!) {
@@ -35,6 +38,10 @@ const RESTAURANT_QUERY = gql`
     }
 `;
 
+interface IFromProps {
+    searchTerm: string;
+}
+
 export const Restuarants = () => {
     const [page, setPage] = useState(1);
     const { data, loading, error } = useQuery<restaurantsPageQuery, restaurantsPageQueryVariables>(RESTAURANT_QUERY, {
@@ -44,24 +51,47 @@ export const Restuarants = () => {
             }
         }
     });
-    
+    const { register, handleSubmit, getValues } = useForm<IFromProps>();
+    const navigate = useNavigate();
+    const onSearchSubmit = () => {
+        console.log("hi");
+        var { searchTerm } = getValues();
+        navigate({
+            pathname: "/search",
+            search: `?term=${searchTerm}`,
+        });
+        /*
+         * search: URL에 표시
+         * state: URL에서 데이터를 숨겨서 가져올 수 있다. 메모리에 저장됨
+        */
+    };
+
     const onNextPageClick = () => setPage((current) => current + 1);
     const onPrevPageClick = () => setPage((current) => current - 1);
     
     return (
         <div>
-            <form className="flex justify-center items-center bg-gray-800 w-full py-40">
+            <Helmet>
+                <title>Home | Nuber Eats</title>
+            </Helmet>
+            <form
+                onSubmit={handleSubmit(onSearchSubmit)}
+                className="flex justify-center items-center bg-gray-800 w-full py-40">
                 <input
+                    {...register("searchTerm", {required: true, min: 3})}
+                    name="searchTerm"
                     type="Search"
-                    className="input rounded-md border-0 w-3/12"
-                    placeholder="Search restaurants" />
+                    className="input rounded-md border-0 w-3/4 md:w-3/12"
+                    placeholder="Search restaurants" /> 
             </form>
 
             {!loading &&
                 <div className="max-w-screen-2xl mx-auto mt-8">
                     <ul className="flex justify-around max-w-sm mx-auto">
                         {data?.allCategories.categories?.map((category) => (
-                            <li className="flex flex-col items-center cursor-pointer group">
+                            <li
+                                key={category.id}
+                                className="flex flex-col items-center cursor-pointer group">
                                 <div
                                     className="w-14 h-14 bg-cover group-hover:bg-gray-100 rounded-full"
                                     style={{ backgroundImage: `url(${category.coverImage})` }}
@@ -73,9 +103,10 @@ export const Restuarants = () => {
                         ))}
                     </ul>
 
-                    <div className="grid mt-10 grid-cols-3 gap-x-5 gap-y-10">
+                    <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
                         {data?.restaurants.results?.map((restaurant) => (
                             <Restaurant
+                                key={restaurant.id}
                                 id={restaurant.id + ""}
                                 name={restaurant.name}
                                 coverImg={restaurant.coverImage}
