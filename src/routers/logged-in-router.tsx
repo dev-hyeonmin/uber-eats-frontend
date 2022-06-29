@@ -8,7 +8,7 @@ import { EditProfile } from "../pages/clients/edit-profile";
 import { Restaurant } from "../pages/clients/restaurant";
 import { Restuarants } from "../pages/clients/restaurants";
 import { Search } from "../pages/clients/search";
-import { Header } from "../pages/header";
+import { Header } from "../components/header";
 import { useMe } from "../pages/hooks/useMe";
 
 const ClientRoutes = [

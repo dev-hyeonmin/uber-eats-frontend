@@ -1,7 +1,7 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { useMe } from "./hooks/useMe";
+import { useMe } from "../pages/hooks/useMe";
 
 
 
@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
 
     return (
         <>
-            {!data.me.verified && (
+            {!data?.me.verified && (
                 <div className="bg-slate-400 p-3 text-center text-xs text-white">
                     <span>Please verify your email.</span>
                 </div>
