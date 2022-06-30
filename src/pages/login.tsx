@@ -9,7 +9,7 @@ import { FormError } from "../components/form-error";
 import { LOCALSTORAGE_TOKEN } from "../constants";
 import { loginMutation, loginMutationVariables } from "../__generated__/loginMutation";
 
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
     mutation loginMutation ($loginInput: LoginInput!) {
         login(input: $loginInput) {
             ok,
@@ -86,8 +86,11 @@ export const Login = () => {
                     placeholder="Email"
                     className="input"
                 />
-                {errors.email?.message && (           
-                    <FormError errorMessage={errors.email?.message}/>
+                {errors.email?.type === "pattern" && (
+                    <FormError errorMessage={"Please enter a valid email"} />
+                )}
+                {errors.email?.message && (
+                    <FormError errorMessage={errors.email?.message} />
                 )}
                 <input
                     {...register("password", {required: "Password is required", minLength: 4})}
@@ -100,9 +103,9 @@ export const Login = () => {
                 {errors.password?.message && (
                     <FormError errorMessage={errors.password?.message}/>
                 )}
-                {errors.password?.type === "minLength" && (
+                {/*errors.password?.type === "minLength" && (
                     <FormError errorMessage="Password must be more than 4 chars."/>
-                )}
+                )*/}
                 <Button
                     canClick = {isValid}
                     loading = {loading}
