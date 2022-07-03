@@ -87,13 +87,13 @@ describe("<Login />", () => {
             userEvent.click(submitBtn);          
         });
 
-        /*expect(mockedMutationResponse).toHaveBeenCalledTimes(1);
+        expect(mockedMutationResponse).toHaveBeenCalledTimes(1);
         expect(mockedMutationResponse).toHaveBeenCalledWith({
             loginInput: {
                 email: formData.email,
                 password: formData.password,
             },
-        });*/
+        });
 
         const errorMessage = getByRole("alert");
         expect(errorMessage).toHaveTextContent(/mutation-error/i);
