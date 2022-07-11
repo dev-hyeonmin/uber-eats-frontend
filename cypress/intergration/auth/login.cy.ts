@@ -24,6 +24,8 @@ describe("Log In", () => {
     user.findByPlaceholderText(/password/i).type('0000')
     user.findByRole("button").should('not.have.class', 'pointer-events-none').click();
     // to do (can login)
+    // @ts-ignore
+    user.login("e2e@mail.com", "e2e0000");
   });
 
   /*it("sign out", () => {
