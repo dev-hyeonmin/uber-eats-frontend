@@ -1,6 +1,8 @@
 import { gql, useQuery } from "@apollo/client"
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { client } from "../../apollo";
 import { Restaurant } from "../../components/restaurant";
 import { RESTAURANT_FRAGMENT } from "../../fragments";
 import { myRestaruants } from "../../__generated__/myRestaruants";
@@ -20,6 +22,7 @@ export const MY_RESTAURANTS_QUERY = gql`
 
 export const MyRestaurants = () => {
     const { data } = useQuery<myRestaruants>(MY_RESTAURANTS_QUERY); 
+
     return (
         <div>
             <Helmet>

@@ -12,6 +12,8 @@ import { Header } from "../components/header";
 import { useMe } from "../pages/hooks/useMe";
 import { MyRestaurants } from "../pages/owner/my-restaurants";
 import { AddRestaurant } from "../pages/owner/add-restaurant";
+import { MyRestaurant } from "../pages/owner/my-restaurant";
+import { AddDish } from "../pages/owner/add-dish";
 
 const clientRoutes = [
     {
@@ -51,6 +53,14 @@ const restaurantRoutes = [
     {
         path: "/add-restaurant",
         component: <AddRestaurant />
+    },
+    {
+        path: "/restaurants/:id",
+        component: <MyRestaurant />
+    },
+    {
+        path: "/restaurants/:id/add-dish",
+        component: <AddDish />
     }
 ]
 
