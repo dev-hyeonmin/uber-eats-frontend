@@ -1,6 +1,9 @@
-import { ApolloClient, createHttpLink, HttpLink, InMemoryCache, makeVar } from "@apollo/client";
+import { ApolloClient, createHttpLink, HttpLink, InMemoryCache, makeVar, split } from "@apollo/client";
 import { LOCALSTORAGE_TOKEN } from "./constants";
 import { setContext } from "@apollo/client/link/context";
+import { getMainDefinition } from "@apollo/client/utilities";
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { SubscriptionClient } from "subscriptions-transport-ws";
 
 const token = localStorage.getItem(LOCALSTORAGE_TOKEN);
 export const isLoggedInVar = makeVar(Boolean(token));
@@ -17,10 +20,30 @@ const authLink = setContext((_, { headers }) => {
       'x-jwt': authTokenVar() || ""
     }
   }
-})
+});
+
+const wsLink = new WebSocketLink(
+  new SubscriptionClient("ws://localhost:4000/graphql", {
+    connectionParams: {
+      'x-jwt': authTokenVar() || ""
+    }
+  })
+);
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  authLink.concat(httpLink),
+);
 
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: splitLink,
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
