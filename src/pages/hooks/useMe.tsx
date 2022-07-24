@@ -11,7 +11,6 @@ export const ME_QUERY = gql`
     }
 `;
 
-
 export const useMe = () => {
     return useQuery(ME_QUERY);
 }
